@@ -39,6 +39,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jmiEmitirRelatorio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de vendas");
 
         jMenu1.setText("Venda");
 
