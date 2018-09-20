@@ -19,5 +19,8 @@ public class ControllerUsuario {
     public int registraUsuarioController(ModelUsuario modelUsuario) {
         return daoUsuario.registraUsuarioDAO(modelUsuario);
     }
-
+    
+    public int buscaUltimoCodController (String tabela) {
+        return daoUsuario.buscaUltimoCodDAO(tabela);
+    }
 }

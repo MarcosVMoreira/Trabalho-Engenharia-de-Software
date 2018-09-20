@@ -5,17 +5,49 @@
  */
 package DAO;
 
+import Conexoes.ConnectionFactory;
 import Model.ModelUsuario;
 
 /**
  *
  * @author Marcos
  */
-public class DAOUsuario {
-    public int registraUsuarioDAO (ModelUsuario modelUsuario) {
-        
-        //FAREI A LIGAÇÃO COM O BANCO AQUI
-        
-        return 0;
+public class DAOUsuario extends ConnectionFactory {
+
+    public int registraUsuarioDAO(ModelUsuario modelUsuario) {
+
+        try {
+            this.conectar();
+            return this.insertSQL(
+                    "INSERT INTO usuarios ("
+                    + "usu_nome,"
+                    + "usu_perfil,"
+                    + "usu_login,"
+                    + "usu_senha"
+                    + ") VALUES ("
+                    + "'" + modelUsuario.getNome() + "',"
+                    + "'" + modelUsuario.getPerfil() + "',"
+                    + "'" + modelUsuario.getLogin() + "',"
+                    + "'" + modelUsuario.getSenha() + "'"
+                    + ");"
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+
+    public int buscaUltimoCodDAO(String tabela) {
+        try {
+            this.conectar();
+            return this.lastID(tabela);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            this.fecharConexao();
+        }
     }
 }

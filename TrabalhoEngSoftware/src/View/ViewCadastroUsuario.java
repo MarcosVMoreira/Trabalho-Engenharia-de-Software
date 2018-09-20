@@ -8,6 +8,7 @@ package View;
 import Controller.ControllerUsuario;
 import Model.ModelUsuario;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -23,6 +24,7 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
      */
     public ViewCadastroUsuario() {
         initComponents();
+//        txtCodigo.setText(Integer.toString(controllerUsuario.buscaUltimoCodController("usuarios")+1));
     }
 
     /**
@@ -40,18 +42,17 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
         txtLogin = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cbPerfil = new javax.swing.JComboBox<>();
+        txtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Código:");
 
-        txtCodigo.setText("66");
         txtCodigo.setEnabled(false);
 
         jLabel2.setText("Nome:");
@@ -97,24 +98,23 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addGap(20, 20, 20)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                            .addComponent(txtLogin))
+                            .addComponent(txtLogin)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(14, 14, 14)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cbPerfil, 0, 131, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnCancelar))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnCancelar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSenha)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -151,19 +151,22 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        modelUsuario.setCod(Integer.parseInt(txtCodigo.getText()));
-        modelUsuario.setNome(txtNome.getText());
-        if (cbPerfil.getSelectedIndex() == 0) {
-            modelUsuario.setPerfil("Vendedor");
+        if (txtNome.getText().isEmpty() || txtLogin.getText().isEmpty() || txtSenha.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos.");
         } else {
-            modelUsuario.setPerfil("Administrador");
-        }
-        modelUsuario.setLogin(txtLogin.getText());
-        modelUsuario.setSenha(txtSenha.getText());
-        if (controllerUsuario.registraUsuarioController(modelUsuario) == 0) {
-            JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.");
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro: não foi possível salvar o cadastro.");
+            modelUsuario.setNome("ABCBAC");
+            if (cbPerfil.getSelectedIndex() == 0) {
+                modelUsuario.setPerfil("Vendedor");
+            } else {
+                modelUsuario.setPerfil("Administrador");
+            }
+            modelUsuario.setLogin("UE");
+            modelUsuario.setSenha("senhaABC");
+            if (controllerUsuario.registraUsuarioController(modelUsuario) == 0) {
+                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro: não foi possível salvar o cadastro.");
+            }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -214,6 +217,6 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
