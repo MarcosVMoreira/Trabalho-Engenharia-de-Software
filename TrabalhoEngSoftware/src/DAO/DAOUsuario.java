@@ -50,4 +50,26 @@ public class DAOUsuario extends ConnectionFactory {
             this.fecharConexao();
         }
     }
+    
+        public boolean getUsuarioDAO(ModelUsuario pModelUsuario){       
+        try {
+            this.conectar();
+            this.executarSQL(
+                    "SELECT * FROM usuarios"
+                    + " WHERE usu_login = '" + pModelUsuario.getLogin()+ "' AND usu_senha = '" + pModelUsuario.getSenha() + "' "
+                    + ";"
+            );
+
+            if (getResultSet().next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }      
+    }
 }

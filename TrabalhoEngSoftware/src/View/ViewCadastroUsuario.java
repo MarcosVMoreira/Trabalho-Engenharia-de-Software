@@ -24,7 +24,8 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
      */
     public ViewCadastroUsuario() {
         initComponents();
-//        txtCodigo.setText(Integer.toString(controllerUsuario.buscaUltimoCodController("usuarios")+1));
+        txtCodigo.setText(Integer.toString(controllerUsuario.buscaUltimoCodController("usuarios") + 1));
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -49,7 +50,8 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
         cbPerfil = new javax.swing.JComboBox<>();
         txtSenha = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de usuários");
 
         jLabel1.setText("Código:");
 
@@ -152,20 +154,20 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (txtNome.getText().isEmpty() || txtLogin.getText().isEmpty() || txtSenha.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos.");
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
-            modelUsuario.setNome("ABCBAC");
+            modelUsuario.setNome(txtNome.getText());
             if (cbPerfil.getSelectedIndex() == 0) {
                 modelUsuario.setPerfil("Vendedor");
             } else {
                 modelUsuario.setPerfil("Administrador");
             }
-            modelUsuario.setLogin("UE");
-            modelUsuario.setSenha("senhaABC");
-            if (controllerUsuario.registraUsuarioController(modelUsuario) == 0) {
-                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.");
+            modelUsuario.setLogin(txtLogin.getText());
+            modelUsuario.setSenha(txtSenha.getText());
+            if (controllerUsuario.registraUsuarioController(modelUsuario) != 0) {
+                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Aviso", JOptionPane.WARNING_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Erro: não foi possível salvar o cadastro.");
+                JOptionPane.showMessageDialog(this, "Erro: não foi possível salvar o cadastro.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

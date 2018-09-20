@@ -16,11 +16,15 @@ public class ControllerUsuario {
 
     DAOUsuario daoUsuario = new DAOUsuario();
 
-    public int registraUsuarioController(ModelUsuario modelUsuario) {
-        return daoUsuario.registraUsuarioDAO(modelUsuario);
+    public int registraUsuarioController(ModelUsuario pModelUsuario) {
+        return daoUsuario.registraUsuarioDAO(pModelUsuario);
     }
-    
-    public int buscaUltimoCodController (String tabela) {
-        return daoUsuario.buscaUltimoCodDAO(tabela);
+
+    public int buscaUltimoCodController(String pTabela) {
+        return daoUsuario.buscaUltimoCodDAO(pTabela);
+    }
+
+    public boolean getUsuarioController(ModelUsuario pModelUsuario) {
+        return daoUsuario.getUsuarioDAO(pModelUsuario);
     }
 }
