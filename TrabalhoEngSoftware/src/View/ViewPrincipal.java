@@ -44,6 +44,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Venda");
 
         jmiRealizarVenda.setText("Realizar venda");
+        jmiRealizarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiRealizarVendaActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmiRealizarVenda);
 
         jMenuBar1.add(jMenu1);
@@ -109,6 +114,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
         ViewCadastroUsuario viewCadastroUsuario = new ViewCadastroUsuario();
         viewCadastroUsuario.setVisible(true);
     }//GEN-LAST:event_jmiCadastrarUsuarioActionPerformed
+
+    private void jmiRealizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiRealizarVendaActionPerformed
+        // TODO add your handling code here:
+        ViewVenda viewVenda = new ViewVenda();
+        viewVenda.setVisible(true);
+    }//GEN-LAST:event_jmiRealizarVendaActionPerformed
 
     /**
      * @param args the command line arguments
