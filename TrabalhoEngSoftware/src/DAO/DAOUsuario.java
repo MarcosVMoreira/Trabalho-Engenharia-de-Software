@@ -39,10 +39,10 @@ public class DAOUsuario extends ConnectionFactory {
         }
     }
 
-    public int buscaUltimoCodDAO(String tabela) {
+    public int buscaUltimoCodDAO(String tabela, String campo) {
         try {
             this.conectar();
-            return this.lastID(tabela);
+            return this.lastID(tabela, campo);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

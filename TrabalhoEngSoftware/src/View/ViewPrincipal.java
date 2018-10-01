@@ -97,7 +97,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiCadProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadProdutoActionPerformed
-        JOptionPane.showMessageDialog(this, "Parte do Otavio");
+        ViewCadastroProduto viewCadastroProduto = new ViewCadastroProduto();
+        viewCadastroProduto.setVisible(true);
     }//GEN-LAST:event_jmiCadProdutoActionPerformed
 
     private void jmiEmitirRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEmitirRelatorioActionPerformed

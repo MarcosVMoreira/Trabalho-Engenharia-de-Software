@@ -20,8 +20,8 @@ public class ControllerUsuario {
         return daoUsuario.registraUsuarioDAO(pModelUsuario);
     }
 
-    public int buscaUltimoCodController(String pTabela) {
-        return daoUsuario.buscaUltimoCodDAO(pTabela);
+    public int buscaUltimoCodController(String pTabela, String campo) {
+        return daoUsuario.buscaUltimoCodDAO(pTabela, campo);
     }
 
     public boolean getUsuarioController(ModelUsuario pModelUsuario) {

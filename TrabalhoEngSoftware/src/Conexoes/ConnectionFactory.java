@@ -118,15 +118,15 @@ public class ConnectionFactory {
         }
     }
 
-    public int lastID(String tabela) {
+    public int lastID(String tabela, String campo) {
         int status = 0;
         try {
             //createStatement de con para criar o Statement
             this.setStatement(getCon().createStatement());
             
             //consulta o ultimo id inserido
-            this.setResultSet(this.getStatement().executeQuery("SELECT usu_cod FROM "+tabela+" ORDER "
-                    + "BY usu_cod DESC LIMIT 1"));
+            this.setResultSet(this.getStatement().executeQuery("SELECT "+campo+" FROM "+tabela+" ORDER "
+                    + "BY "+campo+" DESC LIMIT 1"));
             
             //recupera o ultimo id inserido
             while (this.resultSet.next()) {
