@@ -5,6 +5,9 @@
  */
 package View;
 
+import Controller.ControllerVenda;
+import Model.ModelProduto;
+import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,7 +19,11 @@ public class ViewVenda extends javax.swing.JFrame {
     /**
      * Creates new form ViewVendas
      */
+    ControllerVenda controllerVenda = new ControllerVenda();
+    private LinkedList<ModelProduto> produtos = new LinkedList();
+
     public ViewVenda() {
+
         initComponents();
     }
 
@@ -51,6 +58,11 @@ public class ViewVenda extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbProdutos);
 
         btnAdd.setText("Adicionar");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnRemover.setText("Remover");
 
@@ -108,8 +120,20 @@ public class ViewVenda extends javax.swing.JFrame {
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         // TODO add your handling code here:
-        
+        //pegar os itens que estao na tabela e remover do banco
     }//GEN-LAST:event_btnFinalizarActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        System.out.println("dentro do view venda");
+        for (int i = 0; i < produtos.size(); i++) {
+            
+            System.out.println("produto: " + produtos.get(i).getNome());
+        }
+
+        ViewAdicaoProduto viewAdicao = new ViewAdicaoProduto(produtos);
+        //passando a lista pra ser preenchida qnd selecionado um item na tela de adicao
+        viewAdicao.setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
 
     /**
      * @param args the command line arguments

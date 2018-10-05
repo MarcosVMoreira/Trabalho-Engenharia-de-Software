@@ -5,19 +5,34 @@
  */
 package View;
 
+import Controller.ControllerVenda;
+import Model.ModelProduto;
+import java.util.LinkedList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Marcos
  */
 public class ViewAdicaoProduto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewAdicaoProduto
-     */
+    ControllerVenda controllerVenda = new ControllerVenda();
+    private LinkedList<ModelProduto> produtosViewVenda = new LinkedList<>();
+    private LinkedList<ModelProduto> listaParaTabela = new LinkedList<>();
+
+    public ViewAdicaoProduto(LinkedList pListaProdutos) {
+        produtosViewVenda = pListaProdutos;
+        initComponents();
+        addRowToJTable();
+    }
+
     public ViewAdicaoProduto() {
         initComponents();
     }
 
+    /**
+     * Creates new form ViewAdicaoProduto
+     */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,14 +43,14 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbProdutos = new javax.swing.JTable();
+        tbProdutosAdicao = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Selecionar produto");
 
-        tbProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tbProdutosAdicao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -43,9 +58,14 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
                 "Código", "Produto", "Preço", "Estoque"
             }
         ));
-        jScrollPane1.setViewportView(tbProdutos);
+        jScrollPane1.setViewportView(tbProdutosAdicao);
 
         btnAdd.setText("Adicionar");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -88,6 +108,24 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+
+        for (int i = 0; i < produtosViewVenda.size(); i++) {
+            System.out.println("produto: " + produtosViewVenda.get(i).getNome());
+        }
+
+        produtosViewVenda.add(listaParaTabela.get(tbProdutosAdicao.getSelectedRow()));
+        System.out.println("\n\nadicionado");
+        for (int i = 0; i < produtosViewVenda.size(); i++) {
+            System.out.println("produto: " + produtosViewVenda.get(i).getNome());
+        }
+
+        this.dispose();
+
+        //PAREI AQUI TESTANDO PRA VER SE A TABELA DO ADICAOPRODUTO ESTA ADICIONANDO
+
+    }//GEN-LAST:event_btnAddActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -123,10 +161,36 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
         });
     }
 
+    public void addRowToJTable() {
+        listaParaTabela = controllerVenda.buscaListaProdutos();
+        clearTable();
+
+        DefaultTableModel model = (DefaultTableModel) tbProdutosAdicao.getModel();
+        Object rowData[] = new Object[4];
+
+        for (int i = 0; i < listaParaTabela.size(); i++) {
+            if (listaParaTabela.get(i).getEstoque() > 0) {
+                rowData[0] = listaParaTabela.get(i).getCod();
+                rowData[1] = listaParaTabela.get(i).getNome();
+                rowData[2] = listaParaTabela.get(i).getPreco();
+                rowData[3] = listaParaTabela.get(i).getEstoque();
+                model.addRow(rowData);
+            }
+        }
+
+        tbProdutosAdicao.repaint();
+    }
+
+    public void clearTable() {
+
+        tbProdutosAdicao.setModel(new DefaultTableModel(null, new String[]{"Código", "Produto", "Preço", "Estoque"}));
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbProdutos;
+    private javax.swing.JTable tbProdutosAdicao;
     // End of variables declaration//GEN-END:variables
 }
