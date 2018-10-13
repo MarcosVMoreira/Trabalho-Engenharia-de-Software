@@ -173,6 +173,10 @@ public class ViewCadastroUsuario extends javax.swing.JFrame {
             modelUsuario.setSenha(txtSenha.getText());
             if (controllerUsuario.registraUsuarioController(modelUsuario) != 0) {
                 JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                txtCodigo.setText(Integer.toString(controllerUsuario.buscaUltimoCodController("usuarios", "usu_cod") + 1));
+                txtLogin.setText("");
+                txtNome.setText("");
+                txtSenha.setText("");
             } else {
                 JOptionPane.showMessageDialog(this, "Erro: não foi possível salvar o cadastro.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }

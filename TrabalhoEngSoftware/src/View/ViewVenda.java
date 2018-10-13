@@ -8,23 +8,27 @@ package View;
 import Controller.ControllerVenda;
 import Model.ModelProduto;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Marcos
  */
-public class ViewVenda extends javax.swing.JFrame {
+public class ViewVenda extends javax.swing.JFrame /*implements Observer*/ {
 
     /**
      * Creates new form ViewVendas
      */
     ControllerVenda controllerVenda = new ControllerVenda();
     private LinkedList<ModelProduto> produtos = new LinkedList();
-
+    
     public ViewVenda() {
-
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -41,8 +45,8 @@ public class ViewVenda extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnRemover = new javax.swing.JButton();
         btnFinalizar = new javax.swing.JButton();
-        txtTotal = new javax.swing.JTextField();
         lbTotal = new javax.swing.JLabel();
+        txtTotal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Realizar venda");
@@ -65,6 +69,11 @@ public class ViewVenda extends javax.swing.JFrame {
         });
 
         btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         btnFinalizar.setText("Finalizar compra");
         btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -72,9 +81,6 @@ public class ViewVenda extends javax.swing.JFrame {
                 btnFinalizarActionPerformed(evt);
             }
         });
-
-        txtTotal.setText("TOTAL");
-        txtTotal.setEnabled(false);
 
         lbTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbTotal.setText("Total:");
@@ -108,8 +114,8 @@ public class ViewVenda extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnRemover)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbTotal))
+                    .addComponent(lbTotal)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFinalizar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -124,16 +130,20 @@ public class ViewVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        System.out.println("dentro do view venda");
-        for (int i = 0; i < produtos.size(); i++) {
-            
-            System.out.println("produto: " + produtos.get(i).getNome());
-        }
-
-        ViewAdicaoProduto viewAdicao = new ViewAdicaoProduto(produtos);
-        //passando a lista pra ser preenchida qnd selecionado um item na tela de adicao
+        ViewAdicaoProduto viewAdicao = new ViewAdicaoProduto(produtos, tbProdutos, txtTotal);
         viewAdicao.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        produtos.remove(tbProdutos.getSelectedRow());
+        addRowToJTable(tbProdutos, txtTotal);
+    }//GEN-LAST:event_btnRemoverActionPerformed
+    
+    public void atualizaLista(LinkedList novaLista, JTextField texto) {
+        produtos = novaLista;
+        txtTotal = texto;
+        addRowToJTable(tbProdutos, txtTotal);
+    }
 
     /**
      * @param args the command line arguments
@@ -170,27 +180,30 @@ public class ViewVenda extends javax.swing.JFrame {
             }
         });
     }
-
-    public void addRowToJTable() {
-
-        clearTable();
+    
+    public void addRowToJTable(JTable tabela, JTextField texto) {
+        txtTotal = texto;
+        txtTotal.setText(Float.toString(controllerVenda.calculaTotal(produtos)));
+        System.out.println("valor do texto " + txtTotal.getText());
+        System.out.println("valor aqui " + Float.toString(controllerVenda.calculaTotal(produtos)));
+        
+        tbProdutos = tabela;
+        clearTable(tbProdutos);
         DefaultTableModel model = (DefaultTableModel) tbProdutos.getModel();
         Object rowData[] = new Object[4];
-
-//        for (int i = 0; i < ControllerCliente.customers.size(); i++) {
-//            rowData[0] = ControllerCliente.customers.get(i).getId();
-//            rowData[1] = ControllerCliente.customers.get(i).getName();
-//            rowData[2] = ControllerCliente.customers.get(i).getTelephoneNumber();
-//            rowData[3] = ControllerCliente.customers.get(i).getEmail();
-//            model.addRow(rowData);
-//        }
-        tbProdutos.repaint();
+        for (int i = 0; i < produtos.size(); i++) {
+            rowData[0] = produtos.get(i).getCod();
+            rowData[1] = produtos.get(i).getNome();
+            rowData[2] = produtos.get(i).getEstoque();
+            rowData[3] = produtos.get(i).getPreco();
+            model.addRow(rowData);
+        }
     }
-
-    public void clearTable() {
-
+    
+    public void clearTable(JTable tabela) {
+        tbProdutos = tabela;
         tbProdutos.setModel(new DefaultTableModel(null, new String[]{"Código", "Produto", "Estoque", "Preço"}));
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -202,4 +215,9 @@ public class ViewVenda extends javax.swing.JFrame {
     private javax.swing.JTable tbProdutos;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+
+//    @Override
+//    public void update(Observable o, Object o1) {
+//        System.out.println("FUI NOTIFICADO");
+//    }
 }

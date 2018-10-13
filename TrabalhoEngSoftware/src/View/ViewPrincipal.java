@@ -18,6 +18,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
      */
     public ViewPrincipal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

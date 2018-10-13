@@ -137,6 +137,10 @@ public class ViewCadastroProduto extends javax.swing.JFrame {
             modelProduto.setEstoque(Integer.parseInt(txtEstoque.getText()));
             if (controllerProduto.registraProdutoController(modelProduto) != 0) {
                 JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                txtCodigo.setText(Integer.toString(controllerProduto.buscaUltimoCodController("produtos", "prod_cod") + 1));
+                txtNome.setText("");
+                txtEstoque.setText("");
+                txtPreco.setText("");
             } else {
                 JOptionPane.showMessageDialog(this, "Erro: não foi possível salvar o cadastro.", "Aviso", JOptionPane.WARNING_MESSAGE);
             }

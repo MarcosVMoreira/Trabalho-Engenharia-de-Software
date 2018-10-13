@@ -8,6 +8,8 @@ package View;
 import Controller.ControllerVenda;
 import Model.ModelProduto;
 import java.util.LinkedList;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,17 +19,24 @@ import javax.swing.table.DefaultTableModel;
 public class ViewAdicaoProduto extends javax.swing.JFrame {
 
     ControllerVenda controllerVenda = new ControllerVenda();
+    ViewVenda viewVenda = new ViewVenda();
     private LinkedList<ModelProduto> produtosViewVenda = new LinkedList<>();
     private LinkedList<ModelProduto> listaParaTabela = new LinkedList<>();
+    JTable tabela;
+    JTextField texto;
 
-    public ViewAdicaoProduto(LinkedList pListaProdutos) {
+    public ViewAdicaoProduto(LinkedList pListaProdutos, JTable pTabela, JTextField pTexto) {
         produtosViewVenda = pListaProdutos;
+        tabela = pTabela;
+        texto = pTexto;
         initComponents();
         addRowToJTable();
+        setLocationRelativeTo(null);
     }
 
     public ViewAdicaoProduto() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -79,11 +88,12 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar)))
@@ -110,15 +120,16 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        for (int i = 0; i < produtosViewVenda.size(); i++) {
-            System.out.println("produto: " + produtosViewVenda.get(i).getNome());
-        }
-
         produtosViewVenda.add(listaParaTabela.get(tbProdutosAdicao.getSelectedRow()));
-        System.out.println("\n\nadicionado");
-        for (int i = 0; i < produtosViewVenda.size(); i++) {
-            System.out.println("produto: " + produtosViewVenda.get(i).getNome());
-        }
+//        System.out.println("adicionado produto no viewAdicaoProduto");
+//        for (int i = 0; i < produtosViewVenda.size(); i++) {
+//            System.out.println("produto no viewAdicaoProduto: " + produtosViewVenda.get(i).getNome());
+//        } 
+//        controllerVenda.notificar();
+
+        viewVenda.atualizaLista(produtosViewVenda, texto);
+        viewVenda.clearTable(tabela);
+        viewVenda.addRowToJTable(tabela, texto);
 
         this.dispose();
 

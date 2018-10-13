@@ -70,8 +70,6 @@ public class DAOProduto extends ConnectionFactory {
                 listaModelProduto.add(modelProduto);
             }
 
-            System.out.println(sql);
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro Array getListaProdutoDAO" + e);
             e.printStackTrace();

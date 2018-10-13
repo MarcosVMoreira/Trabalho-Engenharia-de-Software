@@ -8,6 +8,7 @@ package Controller;
 import DAO.DAOProduto;
 import Model.ModelProduto;
 import java.util.LinkedList;
+import java.util.Observable;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,4 +24,13 @@ public class ControllerVenda {
         return daoProduto.getListaProdutoDAO();
     }
 
+
+    public float calculaTotal(LinkedList<ModelProduto> pProdutos) {
+        float total = 0;
+        for (int i = 0; i < pProdutos.size(); i++) {
+            total += pProdutos.get(i).getPreco();
+        }
+        return total;
+    }
+    
 }
