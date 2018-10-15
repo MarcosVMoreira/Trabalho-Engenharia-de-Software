@@ -24,13 +24,34 @@ public class ControllerVenda {
         return daoProduto.getListaProdutoDAO();
     }
 
-
     public float calculaTotal(LinkedList<ModelProduto> pProdutos) {
         float total = 0;
         for (int i = 0; i < pProdutos.size(); i++) {
-            total += pProdutos.get(i).getPreco();
+            total += pProdutos.get(i).getPreco() * pProdutos.get(i).getEstoque();
         }
         return total;
     }
-    
+
+    public boolean realizaVenda(LinkedList<ModelProduto> listaVendas) {
+        LinkedList<ModelProduto> listaBanco;
+        listaBanco = daoProduto.getListaProdutoDAO();
+
+        try {
+            for (int i = 0; i < listaBanco.size(); i++) {
+                for (int j = 0; j < listaVendas.size(); j++) {
+                    if (listaVendas.get(j).getCod() == listaBanco.get(i).getCod()) {
+                        listaVendas.get(j).setEstoque(listaBanco.get(i).getEstoque() - listaVendas.get(j).getEstoque());
+                    }
+                }
+            }
+
+            for (int i = 0; i < listaVendas.size(); i++) {
+                daoProduto.atualizarProdutosDAO(listaVendas.get(i));
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
 }

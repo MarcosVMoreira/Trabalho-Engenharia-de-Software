@@ -80,4 +80,27 @@ public class DAOProduto extends ConnectionFactory {
         return listaModelProduto;
     }
 
+    public boolean atualizarProdutosDAO(ModelProduto pModelProduto) {
+        try {
+            this.conectar();
+            this.executarUpdateDeleteSQL(
+                    "UPDATE produtos SET "
+                    + "prod_cod = '" + pModelProduto.getCod()+ "',"
+                    + "prod_nome = '" + pModelProduto.getNome() + "',"
+                    + "prod_preco = '" + pModelProduto.getPreco()+ "',"
+                    + "prod_estoque = '" + pModelProduto.getEstoque() + "'"
+                    + " WHERE "
+                    + "prod_cod = '" + pModelProduto.getCod() + "'"
+                    + ";"
+            );
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+    
+    
 }

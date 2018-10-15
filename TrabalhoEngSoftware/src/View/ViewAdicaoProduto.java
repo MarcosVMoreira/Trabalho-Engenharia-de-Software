@@ -55,6 +55,8 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
         tbProdutosAdicao = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtQuantidade = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Selecionar produto");
@@ -83,17 +85,22 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Quantidade:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar)))
@@ -107,7 +114,9 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnAdd))
+                    .addComponent(btnAdd)
+                    .addComponent(jLabel1)
+                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -119,22 +128,13 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
+        listaParaTabela.get(tbProdutosAdicao.getSelectedRow()).setEstoque(Integer.parseInt(txtQuantidade.getText()));
         produtosViewVenda.add(listaParaTabela.get(tbProdutosAdicao.getSelectedRow()));
-//        System.out.println("adicionado produto no viewAdicaoProduto");
-//        for (int i = 0; i < produtosViewVenda.size(); i++) {
-//            System.out.println("produto no viewAdicaoProduto: " + produtosViewVenda.get(i).getNome());
-//        } 
-//        controllerVenda.notificar();
-
         viewVenda.atualizaLista(produtosViewVenda, texto);
         viewVenda.clearTable(tabela);
         viewVenda.addRowToJTable(tabela, texto);
 
         this.dispose();
-
-        //PAREI AQUI TESTANDO PRA VER SE A TABELA DO ADICAOPRODUTO ESTA ADICIONANDO
-
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**
@@ -201,7 +201,9 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbProdutosAdicao;
+    private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }

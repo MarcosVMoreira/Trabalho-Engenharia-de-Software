@@ -8,8 +8,7 @@ package View;
 import Controller.ControllerVenda;
 import Model.ModelProduto;
 import java.util.LinkedList;
-import java.util.Observable;
-import java.util.Observer;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -18,14 +17,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Marcos
  */
-public class ViewVenda extends javax.swing.JFrame /*implements Observer*/ {
+public class ViewVenda extends javax.swing.JFrame {
 
     /**
      * Creates new form ViewVendas
      */
     ControllerVenda controllerVenda = new ControllerVenda();
     private LinkedList<ModelProduto> produtos = new LinkedList();
-    
+
     public ViewVenda() {
         initComponents();
         setLocationRelativeTo(null);
@@ -56,7 +55,7 @@ public class ViewVenda extends javax.swing.JFrame /*implements Observer*/ {
 
             },
             new String [] {
-                "Código", "Produto", "Estoque", "Preço"
+                "Código", "Produto", "Quantidade", "Preço"
             }
         ));
         jScrollPane1.setViewportView(tbProdutos);
@@ -125,8 +124,16 @@ public class ViewVenda extends javax.swing.JFrame /*implements Observer*/ {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        // TODO add your handling code here:
-        //pegar os itens que estao na tabela e remover do banco
+        if (produtos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há itens para serem vendidos.");
+        } else {
+            if (controllerVenda.realizaVenda(produtos)) {
+                JOptionPane.showMessageDialog(null, "Venda realizada.");
+                produtos.clear();
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possível realizar venda: erro no banco de dados.");
+            }
+        }
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -138,7 +145,7 @@ public class ViewVenda extends javax.swing.JFrame /*implements Observer*/ {
         produtos.remove(tbProdutos.getSelectedRow());
         addRowToJTable(tbProdutos, txtTotal);
     }//GEN-LAST:event_btnRemoverActionPerformed
-    
+
     public void atualizaLista(LinkedList novaLista, JTextField texto) {
         produtos = novaLista;
         txtTotal = texto;
@@ -180,13 +187,11 @@ public class ViewVenda extends javax.swing.JFrame /*implements Observer*/ {
             }
         });
     }
-    
+
     public void addRowToJTable(JTable tabela, JTextField texto) {
         txtTotal = texto;
         txtTotal.setText(Float.toString(controllerVenda.calculaTotal(produtos)));
-        System.out.println("valor do texto " + txtTotal.getText());
-        System.out.println("valor aqui " + Float.toString(controllerVenda.calculaTotal(produtos)));
-        
+
         tbProdutos = tabela;
         clearTable(tbProdutos);
         DefaultTableModel model = (DefaultTableModel) tbProdutos.getModel();
@@ -199,11 +204,10 @@ public class ViewVenda extends javax.swing.JFrame /*implements Observer*/ {
             model.addRow(rowData);
         }
     }
-    
+
     public void clearTable(JTable tabela) {
         tbProdutos = tabela;
-        tbProdutos.setModel(new DefaultTableModel(null, new String[]{"Código", "Produto", "Estoque", "Preço"}));
-        
+        tbProdutos.setModel(new DefaultTableModel(null, new String[]{"Código", "Produto", "Quantidade", "Preço"}));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -216,8 +220,4 @@ public class ViewVenda extends javax.swing.JFrame /*implements Observer*/ {
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 
-//    @Override
-//    public void update(Observable o, Object o1) {
-//        System.out.println("FUI NOTIFICADO");
-//    }
 }
