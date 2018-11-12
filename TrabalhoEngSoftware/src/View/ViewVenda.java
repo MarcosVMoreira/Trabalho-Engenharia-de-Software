@@ -128,8 +128,11 @@ public class ViewVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não há itens para serem vendidos.");
         } else {
             if (controllerVenda.realizaVenda(produtos)) {
-                JOptionPane.showMessageDialog(null, "Venda realizada.");
+                
                 produtos.clear();
+                
+                ViewFormaPagamento viewFormaPagamento = new ViewFormaPagamento(txtTotal.getText());
+                viewFormaPagamento.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Não foi possível realizar venda: erro no banco de dados.");
             }
