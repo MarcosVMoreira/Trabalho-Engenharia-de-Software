@@ -8,6 +8,7 @@ package View;
 import Controller.ControllerVenda;
 import Model.ModelProduto;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -128,13 +129,19 @@ public class ViewAdicaoProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        listaParaTabela.get(tbProdutosAdicao.getSelectedRow()).setEstoque(Integer.parseInt(txtQuantidade.getText()));
-        produtosViewVenda.add(listaParaTabela.get(tbProdutosAdicao.getSelectedRow()));
-        viewVenda.atualizaLista(produtosViewVenda, texto);
-        viewVenda.clearTable(tabela);
-        viewVenda.addRowToJTable(tabela, texto);
 
-        this.dispose();
+        if (txtQuantidade.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha o campo informando quantidade.");
+        } else {
+            listaParaTabela.get(tbProdutosAdicao.getSelectedRow()).setEstoque(Integer.parseInt(txtQuantidade.getText()));
+            produtosViewVenda.add(listaParaTabela.get(tbProdutosAdicao.getSelectedRow()));
+            viewVenda.atualizaLista(produtosViewVenda, texto);
+            viewVenda.clearTable(tabela);
+            viewVenda.addRowToJTable(tabela, texto);
+
+            this.dispose();
+        }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**

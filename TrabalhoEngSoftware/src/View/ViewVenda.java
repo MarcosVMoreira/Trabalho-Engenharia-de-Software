@@ -84,6 +84,8 @@ public class ViewVenda extends javax.swing.JFrame {
         lbTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbTotal.setText("Total:");
 
+        txtTotal.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,15 +129,11 @@ public class ViewVenda extends javax.swing.JFrame {
         if (produtos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Não há itens para serem vendidos.");
         } else {
-            if (controllerVenda.realizaVenda(produtos)) {
-                
-                produtos.clear();
-                
-                ViewFormaPagamento viewFormaPagamento = new ViewFormaPagamento(txtTotal.getText());
-                viewFormaPagamento.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Não foi possível realizar venda: erro no banco de dados.");
-            }
+
+            ViewFormaPagamento viewFormaPagamento = new ViewFormaPagamento(txtTotal.getText(), produtos);
+            viewFormaPagamento.setVisible(true);
+
+            produtos.clear();
         }
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
@@ -145,8 +143,14 @@ public class ViewVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        produtos.remove(tbProdutos.getSelectedRow());
-        addRowToJTable(tbProdutos, txtTotal);
+        if (tbProdutos.getSelectedRow() != -1) {
+            produtos.remove(tbProdutos.getSelectedRow());
+            addRowToJTable(tbProdutos, txtTotal);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um produto para exclusão.");
+        }
+
+
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     public void atualizaLista(LinkedList novaLista, JTextField texto) {

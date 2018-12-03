@@ -5,7 +5,11 @@
  */
 package View;
 
+import Controller.ControllerVenda;
+import Model.ModelProduto;
+import java.util.LinkedList;
 import javax.swing.ComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,18 +20,26 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
     /**
      * Creates new form ViewFormaPagamento
      */
+    private String valorTotal;
+    private LinkedList<ModelProduto> produtos;
+    private ControllerVenda controllerVenda = new ControllerVenda();
+
     public ViewFormaPagamento() {
         initComponents();
         setLocationRelativeTo(null);
     }
 
-    public ViewFormaPagamento(String valorTotal) {
+    public ViewFormaPagamento(String valorTotal, LinkedList<ModelProduto> produtos) {
 
         initComponents();
-        txtPrecoTotal.setText(valorTotal);
 
-        cbCartao.setEnabled(false);
-        cbDesconto.setEnabled(false);
+        this.produtos = new LinkedList<ModelProduto>(produtos);
+        this.valorTotal = valorTotal;
+        txtPrecoTotal.setText(this.valorTotal);
+
+        txtPrecoFinal.setText(valorTotal);
+        cbParcela.setEnabled(false);
+        cbDesconto.setEnabled(true);
         txtPrecoTotal.setEnabled(false);
         txtPrecoFinal.setEnabled(false);
         setLocationRelativeTo(null);
@@ -45,16 +57,14 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
         txtPrecoTotal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnDinheiro = new javax.swing.JButton();
-        btnCartao = new javax.swing.JButton();
-        btnCarne = new javax.swing.JButton();
-        cbCartao = new javax.swing.JComboBox<>();
+        cbParcela = new javax.swing.JComboBox<>();
         txtPrecoFinal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnFinaliza = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cbDesconto = new javax.swing.JComboBox<>();
+        cbFormaPagamento = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Escolha a forma de pagamento");
@@ -63,28 +73,8 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
 
         jLabel2.setText("Selecione a forma de pagamento:");
 
-        btnDinheiro.setText("Dinheiro");
-        btnDinheiro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDinheiroActionPerformed(evt);
-            }
-        });
-
-        btnCartao.setText("Cartão de crédito");
-        btnCartao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCartaoActionPerformed(evt);
-            }
-        });
-
-        btnCarne.setText("Carnê");
-        btnCarne.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCarneActionPerformed(evt);
-            }
-        });
-
-        cbCartao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbParcela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3x", "6x", "12x" }));
+        cbParcela.setEnabled(false);
 
         jLabel3.setText("Preço final:");
 
@@ -96,6 +86,11 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Selecione um desconto:");
 
@@ -103,6 +98,13 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
         cbDesconto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbDescontoActionPerformed(evt);
+            }
+        });
+
+        cbFormaPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão", "Carnê" }));
+        cbFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbFormaPagamentoActionPerformed(evt);
             }
         });
 
@@ -127,18 +129,14 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCancelar))
                             .addComponent(txtPrecoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cbDesconto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnCarne, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDinheiro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCartao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cbCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbParcela, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,14 +149,10 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDinheiro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCartao)
-                    .addComponent(cbCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCarne)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                    .addComponent(cbParcela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cbDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -170,54 +164,28 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFinaliza)
                     .addComponent(btnCancelar))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDinheiroActionPerformed
-        btnCarne.setEnabled(false);
-        btnCartao.setEnabled(false);
-        cbDesconto.setEnabled(true);
-
-
-    }//GEN-LAST:event_btnDinheiroActionPerformed
-
-    private void btnCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCartaoActionPerformed
-        // TODO add your handling code here:
-        btnDinheiro.setEnabled(false);
-        btnCartao.setEnabled(false);
-        cbCartao.setEnabled(true);
-
-        //setar os valores das parcelas de combo na comboBox
-        //3x 4x 5x 10x com juros de 3% 4% 5% e 10%
-        //setar preço final de acordo com os juros
-        txtPrecoFinal.setText("Valor para pagamento a cartao");
-
-    }//GEN-LAST:event_btnCartaoActionPerformed
-
-    private void btnCarneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarneActionPerformed
-        // TODO add your handling code here:
-        btnCarne.setEnabled(false);
-        btnDinheiro.setEnabled(false);
-    }//GEN-LAST:event_btnCarneActionPerformed
-
     private void cbDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDescontoActionPerformed
         // TODO add your handling code here:
 
         if (cbDesconto.isEnabled()) {
-
-            System.out.println("combo de desconto esta ativa");
-
-            if (cbDesconto.getSelectedIndex() == 0) {
-                txtPrecoFinal.setText(Double.toString(Double.parseDouble(txtPrecoTotal.getText()) * 1.02));
-            } else if (cbDesconto.getSelectedIndex() == 1) {
-                txtPrecoFinal.setText(Double.toString(Double.parseDouble(txtPrecoTotal.getText()) * 1.05));
-            } else if (cbDesconto.getSelectedIndex() == 2) {
-                txtPrecoFinal.setText(Double.toString(Double.parseDouble(txtPrecoTotal.getText()) * 1.10));
-            } else if (cbDesconto.getSelectedIndex() == 3) {
-                txtPrecoFinal.setText(Double.toString(Double.parseDouble(txtPrecoTotal.getText()) * 1.15));
+            if (cbDesconto.getSelectedIndex() == 0) { //2, 5, 10 e 15
+                System.out.println("mudou 2");
+                txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal) * 0.98));
+            } else if (cbDesconto.getSelectedIndex() == 1) { //2, 5, 10 e 15
+                System.out.println("mudou 5");
+                txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal) * 0.95));
+            } else if (cbDesconto.getSelectedIndex() == 2) { //2, 5, 10 e 15
+                System.out.println("mudou 10");
+                txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal) * 0.9));
+            } else if (cbDesconto.getSelectedIndex() == 3) { //2, 5, 10 e 15
+                System.out.println("mudou 15");
+                txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal) * 0.85));
             }
         }
 
@@ -225,9 +193,39 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
     }//GEN-LAST:event_cbDescontoActionPerformed
 
     private void btnFinalizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizaActionPerformed
-        System.out.println("FINALIZANDO COMPRA");
-
+        controllerVenda.realizaVenda(produtos);
+        JOptionPane.showMessageDialog(this, "Compra finalizada.");
+        this.dispose();
     }//GEN-LAST:event_btnFinalizaActionPerformed
+
+    private void cbFormaPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFormaPagamentoActionPerformed
+        if (cbFormaPagamento.getSelectedIndex() == 0) {
+            cbParcela.setEnabled(false);
+            cbDesconto.setEnabled(true);
+            if (cbDesconto.getSelectedIndex() == 0) { //2, 5, 10 e 15
+                txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal) * 0.98));
+            } else if (cbDesconto.getSelectedIndex() == 1) { //2, 5, 10 e 15
+                txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal) * 0.95));
+            } else if (cbDesconto.getSelectedIndex() == 2) { //2, 5, 10 e 15
+                txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal) * 0.9));
+            } else if (cbDesconto.getSelectedIndex() == 3) { //2, 5, 10 e 15
+                txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal) * 0.85));
+            }
+        } else if (cbFormaPagamento.getSelectedIndex() == 1) {
+            cbParcela.setEnabled(true);
+            cbDesconto.setEnabled(false);
+            txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal)));
+
+        } else {
+            txtPrecoFinal.setText(Double.toString(Double.parseDouble(valorTotal)));
+            cbParcela.setEnabled(false);
+            cbDesconto.setEnabled(false);
+        }
+    }//GEN-LAST:event_cbFormaPagamentoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,12 +268,10 @@ public class ViewFormaPagamento extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCarne;
-    private javax.swing.JButton btnCartao;
-    private javax.swing.JButton btnDinheiro;
     private javax.swing.JButton btnFinaliza;
-    private javax.swing.JComboBox<String> cbCartao;
     private javax.swing.JComboBox<String> cbDesconto;
+    private javax.swing.JComboBox<String> cbFormaPagamento;
+    private javax.swing.JComboBox<String> cbParcela;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
