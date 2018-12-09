@@ -25,7 +25,10 @@ public class ControllerVenda {
     }
 
     public float calculaTotal(LinkedList<ModelProduto> pProdutos) {
-        float total = 0;
+        float total = 0; 
+        if (pProdutos == null) {
+            return 0.0F;
+        }
         for (int i = 0; i < pProdutos.size(); i++) {
             total += pProdutos.get(i).getPreco() * pProdutos.get(i).getEstoque();
         }

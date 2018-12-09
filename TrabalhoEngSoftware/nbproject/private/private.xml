@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Marcos/Desktop/Git/Trabalho%20Engenharia%20de%20Software/TrabalhoEngSoftware/src/View/ViewFormaPagamento.java</file>
-            <file>file:/C:/Users/Marcos/Desktop/Git/Trabalho%20Engenharia%20de%20Software/TrabalhoEngSoftware/src/View/ViewVenda.java</file>
+            <file>file:/C:/Users/Marcos/Desktop/Git/Trabalho%20Engenharia%20de%20Software/TrabalhoEngSoftware/src/Controller/ControllerProduto.java</file>
+            <file>file:/C:/Users/Marcos/Desktop/Git/Trabalho%20Engenharia%20de%20Software/TrabalhoEngSoftware/test/Controller/ControllerVendaTest.java</file>
+            <file>file:/C:/Users/Marcos/Desktop/Git/Trabalho%20Engenharia%20de%20Software/TrabalhoEngSoftware/test/Controller/ControllerUsuarioTest.java</file>
+            <file>file:/C:/Users/Marcos/Desktop/Git/Trabalho%20Engenharia%20de%20Software/TrabalhoEngSoftware/test/Controller/ControllerProdutoTest.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,8 +5,6 @@
  */
 package View;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Marcos
@@ -36,8 +34,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jmiCadProduto = new javax.swing.JMenuItem();
         jmiCadastrarUsuario = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jmiEmitirRelatorio = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de vendas");
@@ -74,18 +70,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Relatório");
-
-        jmiEmitirRelatorio.setText("Emitir relatório");
-        jmiEmitirRelatorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiEmitirRelatorioActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jmiEmitirRelatorio);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -106,10 +90,6 @@ public class ViewPrincipal extends javax.swing.JFrame {
         ViewCadastroProduto viewCadastroProduto = new ViewCadastroProduto();
         viewCadastroProduto.setVisible(true);
     }//GEN-LAST:event_jmiCadProdutoActionPerformed
-
-    private void jmiEmitirRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiEmitirRelatorioActionPerformed
-        JOptionPane.showMessageDialog(this, "Parte do Pablo");
-    }//GEN-LAST:event_jmiEmitirRelatorioActionPerformed
 
     private void jmiCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCadastrarUsuarioActionPerformed
         ViewCadastroUsuario viewCadastroUsuario = new ViewCadastroUsuario();
@@ -161,11 +141,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jmiCadProduto;
     private javax.swing.JMenuItem jmiCadastrarUsuario;
-    private javax.swing.JMenuItem jmiEmitirRelatorio;
     private javax.swing.JMenuItem jmiRealizarVenda;
     // End of variables declaration//GEN-END:variables
 }
