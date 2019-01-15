@@ -6,13 +6,13 @@
 # Imagens do Software
 
 <p align = "center">
-  <img src="https://raw.githubusercontent.com/MarcosVMoreira/Trabalho-Engenharia-de-Software/master/Imagens%20do%20Sistema/CadastroProduto.png" alt="Cadastro de produtos" width="250"/>
+  <img src="https://raw.githubusercontent.com/MarcosVMoreira/Trabalho-Engenharia-de-Software/master/Imagens%20do%20Sistema/CadastroProduto.png" alt="Cadastro de produtos" />
 </p>      <br>
 <p align = "center">
-  <img src="https://raw.githubusercontent.com/MarcosVMoreira/Trabalho-Engenharia-de-Software/master/Imagens%20do%20Sistema/Login.png" alt="Login" width="250"/>
+  <img src="https://raw.githubusercontent.com/MarcosVMoreira/Trabalho-Engenharia-de-Software/master/Imagens%20do%20Sistema/Login.png" alt="Login" />
 </p>     <br> 
 <p align = "center">
-  <img src="https://raw.githubusercontent.com/MarcosVMoreira/Trabalho-Engenharia-de-Software/master/Imagens%20do%20Sistema/RealizarVenda.png" alt="Realizar venda" width="250"/>
+  <img src="https://raw.githubusercontent.com/MarcosVMoreira/Trabalho-Engenharia-de-Software/master/Imagens%20do%20Sistema/RealizarVenda.png" alt="Realizar venda" />
 </p>   
 
 # Pré-Requisitos
