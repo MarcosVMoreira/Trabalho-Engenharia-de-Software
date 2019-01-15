@@ -27,7 +27,7 @@ public class ConnectionFactory {
     private String servidor = "localhost:3306";//"localhost:3307";
     private String nomeDoBanco = "bancoengsoftware"; //mudar pro nome do seu db
     private String usuario = "root"; //"root";
-    private String senha = "root"; //"root";
+    private String senha = ""; //"root";
 
     public ConnectionFactory() {
     }

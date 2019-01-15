@@ -21,14 +21,14 @@
 
 DROP TABLE IF EXISTS `produtos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8;
 CREATE TABLE `produtos` (
   `prod_cod` int(11) NOT NULL AUTO_INCREMENT,
   `prod_nome` varchar(45) NOT NULL,
   `prod_preco` float NOT NULL,
   `prod_estoque` int(11) NOT NULL,
   PRIMARY KEY (`prod_cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8;
 CREATE TABLE `usuarios` (
   `usu_cod` int(11) NOT NULL AUTO_INCREMENT,
   `usu_nome` varchar(45) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `usuarios` (
   `usu_login` varchar(45) NOT NULL,
   `usu_senha` varchar(45) NOT NULL,
   PRIMARY KEY (`usu_cod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
