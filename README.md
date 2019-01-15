@@ -1,7 +1,7 @@
 # Trabalho de Engenharia de Software
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sistema extremamente simples feito em Java. O intuito do desenvolvimento desse sistema foi aplicar as práticas de engenharia de software na prática. Modelo MVC+DAO, diagrama de Caso de Uso, diagrama de estados e modelo Entidade-Relacionamento foram uma das técnicas utilizadas e que acompanharam o desenvolvimento do sistema.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O software possui tela de login, tela principal, cadastro de produtos, cadastro de usuários e realização de vendas. Além disso, possui conexão com banco de dados MySQL utilizando ConnectionFactoty. Tal software foi inspirado em um grande sistema de gerenciamento de micro e pequenas empresas já desenvolvido por mim e mais uma equipe de três desenvolvedores.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sistema extremamente simples feito em `Java` para a disciplina de **Engenharia de Software** do curso de [Engenharia de Computação](https://pcs.ifsuldeminas.edu.br/index.php?option=com_content&view=article&id=639&Itemid=267) do [IFSULDEMINAS - Campus Poços de Caldas](https://pcs.ifsuldeminas.edu.br/). O intuito do desenvolvimento desse sistema foi aplicar as práticas de engenharia de *software* na prática. Modelo `MVC+DAO`, diagrama de Caso de Uso, diagrama de estados e modelo Entidade-Relacionamento foram uma das técnicas utilizadas e que acompanharam o desenvolvimento do sistema.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O *software* possui tela de *login*, tela principal, cadastro de produtos, cadastro de usuários e realização de vendas. Além disso, possui conexão com banco de dados `MySQL` utilizando `ConnectionFactory`. Tal *software* foi inspirado em um grande sistema de gerenciamento de micro e pequenas empresas já desenvolvido por mim e mais uma equipe de três desenvolvedores.
 
 # Imagens do Software
 
