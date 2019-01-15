@@ -27,7 +27,7 @@ Basta clonar/baixar os arquivos do repositório e abri-los utilizando NetBeans I
 
 # Equipe
 
-* **Marcos Vinícius Moreira** - *Desenvolvedor do App* - [MarcosVMoreira](https://github.com/MarcosVMoreira)
-* **Otávio Palma** - *Desenvolvedor do App* - [OtavioPalma](https://github.com/OtavioPalma)
-* **Pablo Borges** - *Desenvolvedor do App*
+* **Marcos Vinícius Moreira** - *Desenvolvedor do Software* - [MarcosVMoreira](https://github.com/MarcosVMoreira)
+* **Otávio Palma** - *Desenvolvedor do Software* - [OtavioPalma](https://github.com/OtavioPalma)
+* **Pablo Borges** - *Desenvolvedor do Software*
 
